@@ -3,23 +3,29 @@ import 'package:netflix/core/constants.dart';
 
 class CustomAppBar extends StatelessWidget {
   final Widget leading;
-  const CustomAppBar({super.key, required this.leading});
+  final Widget? bottom;
+  const CustomAppBar({super.key, required this.leading, this.bottom});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Row(
+      child: Column(
         children: [
-          leading,
-          Spacer(),
-          Icon(Icons.cast),
-          kWidth,
-          Container(
-            height: 30,
-            width: 30,
-            color: Colors.blue,
+          Row(
+            children: [
+              leading,
+              Spacer(),
+              Icon(Icons.cast),
+              kWidth,
+              Container(
+                height: 30,
+                width: 30,
+                color: Colors.blue,
+              ),
+            ],
           ),
+          bottom ?? const SizedBox(),
         ],
       ),
     );
