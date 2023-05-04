@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:netflix/core/constants.dart';
 
 class CustomAppBar extends StatelessWidget {
-  final String title;
-  const CustomAppBar({super.key, required this.title});
+  final Widget leading;
+  const CustomAppBar({super.key, required this.leading});
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +11,7 @@ class CustomAppBar extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Row(
         children: [
-          Text(title,
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700)),
+          leading,
           Spacer(),
           Icon(Icons.cast),
           kWidth,

@@ -19,7 +19,8 @@ class ScreenDownloads extends StatelessWidget {
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(50),
             child: CustomAppBar(
-              title: 'Downloads',
+              leading: Text('Downloads',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700)),
             )),
         body: ListView.separated(
           padding: EdgeInsets.all(10),
