@@ -9,7 +9,7 @@ class HotAndNewResp {
   @JsonKey(name: 'results')
   List<HotAndNewData> results;
 
-  HotAndNewResp({this.page, this.results=const []});
+  HotAndNewResp({this.page, this.results = const []});
 
   factory HotAndNewResp.fromJson(Map<String, dynamic> json) {
     return _$HotAndNewRespFromJson(json);
@@ -28,6 +28,8 @@ class HotAndNewData {
   String? originalLanguage;
   @JsonKey(name: 'original_title')
   String? originalTitle;
+  @JsonKey(name: 'original_name')
+  String? originalName;
   @JsonKey(name: 'overview')
   String? overview;
   @JsonKey(name: 'poster_path')
@@ -42,6 +44,7 @@ class HotAndNewData {
     this.id,
     this.originalLanguage,
     this.originalTitle,
+    this.originalName,
     this.overview,
     this.posterPath,
     this.releaseDate,

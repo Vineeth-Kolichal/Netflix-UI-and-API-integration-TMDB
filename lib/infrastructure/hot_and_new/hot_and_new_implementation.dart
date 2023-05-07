@@ -5,13 +5,15 @@ import 'package:netflix/domain/core/failures/main_failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:netflix/domain/hot_and_new%20_resp/hot_and_new_service.dart';
 import 'package:netflix/domain/hot_and_new%20_resp/models/hot_and_new_resp.dart';
+
 @LazySingleton(as: HotAndNewService)
-class HotAndNewImplementation extends HotAndNewService{
+class HotAndNewImplementation extends HotAndNewService {
   @override
-  Future<Either<MainFailure, HotAndNewResp>> getHotAndNewMovieData() async{
-   try {
-      final Response response = await Dio(BaseOptions())
-          .get(ApiEndPoints.hotAndNewMovie,);
+  Future<Either<MainFailure, HotAndNewResp>> getHotAndNewMovieData() async {
+    try {
+      final Response response = await Dio(BaseOptions()).get(
+        ApiEndPoints.hotAndNewMovie,
+      );
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = HotAndNewResp.fromJson(response.data);
 
@@ -25,10 +27,11 @@ class HotAndNewImplementation extends HotAndNewService{
   }
 
   @override
-  Future<Either<MainFailure, HotAndNewResp>> getHotAndNewTVData() async{
-   try {
-      final Response response = await Dio(BaseOptions())
-          .get(ApiEndPoints.hotAndNewTv,);
+  Future<Either<MainFailure, HotAndNewResp>> getHotAndNewTVData() async {
+    try {
+      final Response response = await Dio(BaseOptions()).get(
+        ApiEndPoints.hotAndNewTv,
+      );
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = HotAndNewResp.fromJson(response.data);
 
@@ -40,5 +43,4 @@ class HotAndNewImplementation extends HotAndNewService{
       return const Left(MainFailure.clientFailure());
     }
   }
-
 }
