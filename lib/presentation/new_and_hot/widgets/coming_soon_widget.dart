@@ -61,7 +61,8 @@ class ComingSoonItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ImageWithMuteButton(size: size,heightpercent:0.5 ,widthPercet:0.85 ),
+              ImageWithMuteButton(
+                  size: size, heightpercent: 0.5, widthPercet: 0.85),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Row(

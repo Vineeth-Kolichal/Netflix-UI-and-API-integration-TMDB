@@ -1,34 +1,37 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:netflix/application/downloads/downloads_bloc.dart';
 import 'package:netflix/core/colors.dart';
 import 'package:netflix/core/constants.dart';
+import 'package:netflix/core/strings.dart';
 import 'package:netflix/presentation/widgets/custom_app_bar.dart';
 
 class ScreenDownloads extends StatelessWidget {
   ScreenDownloads({super.key});
   List<Widget> _widgets = [
-    _SmartDownloads(),
+    const _SmartDownloads(),
     Section2(),
-    Section3(),
+    const Section3(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-            preferredSize: Size.fromHeight(50),
+        appBar: const PreferredSize(
+            preferredSize: Size.fromHeight(55),
             child: CustomAppBar(
               leading: Text('Downloads',
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700)),
             )),
         body: ListView.separated(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           itemBuilder: (ctx, index) {
             return _widgets[index];
           },
           separatorBuilder: (ctx, index) {
-            return SizedBox(
+            return const SizedBox(
               height: 20,
             );
           },
@@ -40,53 +43,75 @@ class ScreenDownloads extends StatelessWidget {
 class Section2 extends StatelessWidget {
   Section2({super.key});
 
-  List<String> imagePath = [
-    'https://www.themoviedb.org/t/p/w220_and_h330_face/5jHnykugFB3awLTwDM5LQ93TIzs.jpg',
-    'https://www.themoviedb.org/t/p/w220_and_h330_face/dP1Xoc3X76Q97OUCpQTN9hftUST.jpg',
-    'https://www.themoviedb.org/t/p/w220_and_h330_face/fXgY2RCzoIJPhPDoyKRjaaqjIZs.jpg'
-  ];
-
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<DownloadsBloc>(context)
+          .add(const DownloadsEvent.getDownloadsImage());
+    });
     final Size size = MediaQuery.of(context).size;
 
     return Column(
       children: [
-        Text(
+        const Text(
           'Introducing Downloads for you',
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
         kHeight,
-        Text(
+        const Text(
           'We will download a personalized selection of\nmovies and shows for you. So there is \nalways something to watch on your \ndevice. ',
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.grey, fontSize: 16),
         ),
-        Container(
-          height: size.width,
-          width: size.width,
-          child: Stack(alignment: Alignment.center, children: [
-            CircleAvatar(
-              backgroundColor: Color.fromARGB(144, 158, 158, 158),
-              radius: size.width * 0.37,
-            ),
-            DownloadImageWidget(
-                size: Size(size.width * 0.38, size.width * 0.54),
-                imagePath: imagePath[2],
-                rotationAngle: -20,
-                margin: EdgeInsets.only(right: 155, bottom: 35)),
-            DownloadImageWidget(
-                size: Size(size.width * 0.38, size.width * 0.54),
-                imagePath: imagePath[1],
-                rotationAngle: 20,
-                margin: EdgeInsets.only(left: 155, bottom: 35)),
-            DownloadImageWidget(
-                size: Size(size.width * 0.42, size.width * 0.6),
-                imagePath: imagePath[0],
-                rotationAngle: 0,
-                margin: EdgeInsets.only(top: 10))
-          ]),
+        BlocBuilder<DownloadsBloc, DownloadState>(
+          builder: (context, state) {
+            if (state.isLoading) {
+              return SizedBox(
+                height: size.width,
+                width: size.width,
+                child: const Center(child: CircularProgressIndicator()),
+              );
+            }
+            if (state.downloads.isEmpty) {
+              return SizedBox(
+                height: size.width,
+                width: size.width,
+                child: const Center(child: CircularProgressIndicator()),
+              );
+            } else {
+              return SizedBox(
+                height: size.width,
+                width: size.width,
+                child: Stack(alignment: Alignment.center, children: [
+                  CircleAvatar(
+                    backgroundColor: const Color.fromARGB(144, 158, 158, 158),
+                    radius: size.width * 0.37,
+                  ),
+                  DownloadImageWidget(
+                      size: Size(size.width * 0.38, size.width * 0.54),
+                      imagePath:
+                          '$imageAppendUrl${state.downloads[0].posterPath}',
+                      rotationAngle: -20,
+                      margin:
+                          EdgeInsets.only(right: size.width * 0.4, bottom: 35)),
+                  DownloadImageWidget(
+                      size: Size(size.width * 0.38, size.width * 0.54),
+                      imagePath:
+                          '$imageAppendUrl${state.downloads[1].posterPath}',
+                      rotationAngle: 20,
+                      margin:
+                          EdgeInsets.only(left: size.width * 0.4, bottom: 35)),
+                  DownloadImageWidget(
+                      size: Size(size.width * 0.42, size.width * 0.6),
+                      imagePath:
+                          '$imageAppendUrl${state.downloads[2].posterPath}',
+                      rotationAngle: 0,
+                      margin: const EdgeInsets.only(top: 10))
+                ]),
+              );
+            }
+          },
         ),
       ],
     );
@@ -107,8 +132,8 @@ class Section3 extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             color: kButtomColorBlue,
             onPressed: () {},
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
               child: Text(
                 'Setup',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
@@ -121,8 +146,8 @@ class Section3 extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
           color: kButtonColorWhite,
           onPressed: () {},
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
             child: Text(
               'See what you can download',
               style: TextStyle(
@@ -148,9 +173,9 @@ class _SmartDownloads extends StatelessWidget {
     return Row(
       children: [
         kWidth,
-        Icon(Icons.settings),
+        const Icon(Icons.settings),
         kWidth,
-        Text('Smart Downloads'),
+        const Text('Smart Downloads'),
       ],
     );
   }

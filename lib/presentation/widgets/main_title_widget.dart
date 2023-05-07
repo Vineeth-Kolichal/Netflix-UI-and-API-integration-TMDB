@@ -14,6 +14,5 @@ class MainTitileWidget extends StatelessWidget {
         fontWeight: FontWeight.bold,
       ),
     );
-    
   }
 }

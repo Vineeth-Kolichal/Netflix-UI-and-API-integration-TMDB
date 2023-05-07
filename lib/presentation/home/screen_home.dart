@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:netflix/core/colors.dart';
 import 'package:netflix/core/constants.dart';
 import 'package:netflix/presentation/home/widgets/topTenTitleWithCard.dart';
 import 'package:netflix/presentation/widgets/custom_app_bar.dart';
-import 'package:netflix/presentation/widgets/main_title_widget.dart';
 import 'widgets/background_image_card.dart';
 import 'widgets/titleWithCardWidget.dart';
 
@@ -81,8 +79,8 @@ class ScreenHome extends StatelessWidget {
                         child: Column(children: [
                           CustomAppBar(
                             leading: Image.network(
-                                height: size.width * 0.1,
-                                width: size.width * 0.1,
+                                height: size.width * 0.09,
+                                width: size.width * 0.09,
                                 'https://pngimg.com/d/netflix_PNG15.png'),
                           ),
                           Row(

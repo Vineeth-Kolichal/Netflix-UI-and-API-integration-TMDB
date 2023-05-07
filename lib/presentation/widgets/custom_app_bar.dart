@@ -21,7 +21,8 @@ class CustomAppBar extends StatelessWidget {
               Container(
                 height: 30,
                 width: 30,
-                color: Colors.blue,
+                decoration: BoxDecoration(
+                    color: Colors.blue, borderRadius: BorderRadius.circular(3)),
               ),
             ],
           ),
