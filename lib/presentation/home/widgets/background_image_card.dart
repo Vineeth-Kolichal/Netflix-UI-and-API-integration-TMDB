@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:netflix/core/colors.dart';
 import 'package:netflix/core/constants.dart';
+import 'package:netflix/core/strings.dart';
 
 class BackgroundImageCard extends StatelessWidget {
   const BackgroundImageCard({
     super.key,
-    required this.size,
+    required this.size, this.image,
   });
-
+  final String? image;
   final Size size;
 
   @override
@@ -23,7 +24,7 @@ class BackgroundImageCard extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(kImage),
+                image: NetworkImage(image==null?kImage:imageAppendUrl + image!),
               ),
             ),
           ),

@@ -23,7 +23,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       final tvResult = await homeService.getHotAndNewTVData();
 
       //transform data
-      movieResult.fold((l) {
+      final state1 = movieResult.fold((l) {
         return const HomeState(
           pastYearMovieList: [],
           trendingMovieList: [],
@@ -35,9 +35,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         );
       }, (r) {
         final pastYearList = r.results;
-        final trendingList = r.results;
-        final tenseList = r.results;
-        final southList = r.results;
+        final trendingList = pastYearList;
+        final tenseList = trendingList;
+        final southList = tenseList;
         pastYearList.shuffle();
         trendingList.shuffle();
         tenseList.shuffle();
@@ -52,8 +52,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           isError: false,
         );
       });
-
-      tvResult.fold((l) {
+      emit(state1);
+      final state2 = tvResult.fold((l) {
         return const HomeState(
           pastYearMovieList: [],
           trendingMovieList: [],
@@ -76,6 +76,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         );
       });
       //send t ui
+      emit(state2);
     });
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netflix/core/colors.dart';
 import 'package:netflix/core/constants.dart';
+import 'package:netflix/core/strings.dart';
 import 'package:netflix/presentation/home/screen_home.dart';
 import 'package:netflix/presentation/widgets/main_title_widget.dart';
 
@@ -11,9 +12,11 @@ class TopTenTitleWithCardList extends StatelessWidget {
     super.key,
     required this.size,
     required this.title,
+    required this.imageList,
   });
   final String title;
   final Size size;
+  final List<String?> imageList;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +34,7 @@ class TopTenTitleWithCardList extends StatelessWidget {
               children: List.generate(
                   10,
                   (index) => TopTenImageListItem(
+                        image: imageList[index],
                         size: size,
                         index: index,
                       ))),
@@ -45,9 +49,11 @@ class TopTenImageListItem extends StatelessWidget {
     super.key,
     required this.size,
     required this.index,
+    required this.image,
   });
   final int index;
   final Size size;
+  final String? image;
 
   @override
   Widget build(BuildContext context) {
@@ -60,15 +66,20 @@ class TopTenImageListItem extends StatelessWidget {
               const SizedBox(
                 width: 25,
               ),
-              Container(
-                width: size.width * 0.3,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.cover, image: NetworkImage(imageHome)),
-                  color: Colors.amber,
-                  borderRadius: kborderRadius,
-                ),
-              ),
+              image == null
+                  ? SizedBox(
+                      width: size.width * 0.3,
+                      child: Text('failed to\nload\nImage'),
+                    )
+                  : Container(
+                      width: size.width * 0.3,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(imageAppendUrl + image!)),
+                        borderRadius: kborderRadius,
+                      ),
+                    ),
             ],
           ),
           Positioned(
