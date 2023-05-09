@@ -35,9 +35,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         );
       }, (r) {
         final pastYearList = r.results;
-        final trendingList = pastYearList;
-        final tenseList = trendingList;
-        final southList = tenseList;
+        final trendingList = r.results;
+        final tenseList = r.results;
+        final southList = r.results;
         pastYearList.shuffle();
         trendingList.shuffle();
         tenseList.shuffle();

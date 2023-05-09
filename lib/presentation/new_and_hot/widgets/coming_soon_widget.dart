@@ -148,7 +148,7 @@ class ComingSoonItem extends StatelessWidget {
                 child: Row(
                   children: [
                     SizedBox(
-                      width: size.width * 0.5,
+                      width: size.width * 0.45,
                       child: Text(
                         overflow: TextOverflow.ellipsis,
                         movieName,

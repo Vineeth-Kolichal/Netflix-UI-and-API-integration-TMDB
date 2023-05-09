@@ -91,6 +91,9 @@ class VideoListItem extends StatelessWidget {
                         }
                         return GestureDetector(
                           onTap: () {
+                            print(
+                                '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}');
+
                             likedVideoIdsNotifier.value.add(index);
                             likedVideoIdsNotifier.notifyListeners();
                           },

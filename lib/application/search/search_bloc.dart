@@ -56,7 +56,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       emit(_state);
     });
     on<SearchMovie>((event, emit) async {
-      log('searching ${event.movieQuery}');
 //call search movie
       emit(const SearchState(
         searchResultList: [],

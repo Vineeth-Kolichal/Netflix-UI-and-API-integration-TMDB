@@ -26,7 +26,7 @@ class DownloadsBloc extends Bloc<DownloadsEvent, DownloadState> {
       );
       final Either<MainFailure, List<Downloads>> downloadsOption =
           await _downloadsRepo.getDownloadImages();
-      log(downloadsOption.toString());
+      
       emit(
         downloadsOption.fold(
           (failure) => state.copyWith(
